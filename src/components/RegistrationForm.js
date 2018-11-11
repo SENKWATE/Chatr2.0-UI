@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionCreators from "../store/actions/authentication";
+import * as actionErrors from "../store/actions/errors";
 
 class RegistationForm extends Component {
   constructor(props) {
@@ -17,13 +20,27 @@ class RegistationForm extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  submitHandler(e) {
+  submitHandler(e,type) {
     e.preventDefault();
-    alert("I don't work yet");
+    if(this.props.match.url.substring(1) === "login")
+    {
+      // alert("I am login button");
+      this.props.login(this.state, this.props.history);
+    }
+    else
+    {
+      // alert("I am signup button");
+      this.props.signup(this.state, this.props.history);
+    }
+
   }
 
   render() {
     const type = this.props.match.url.substring(1);
+    const { username, password } = this.state;
+    if (this.props.user) {
+      this.props.history.push("/");
+    }
     return (
       <div className="card col-6 mx-auto p-0 mt-5">
         <div className="card-body">
@@ -81,4 +98,22 @@ class RegistationForm extends Component {
   }
 }
 
-export default RegistationForm;
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  // error: state.errors
+});
+const mapDispatchToProps = dispatch => {
+  return {
+    signup: (userData, history) =>
+      dispatch(actionCreators.signup(userData, history)),
+    login: (userData, history) =>
+      dispatch(actionCreators.login(userData, history)),
+    // error: (error) =>
+    //   dispatch(actionErrors.setErrors(error))
+
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps)(RegistationForm);

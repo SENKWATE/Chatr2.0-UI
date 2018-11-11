@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actionCreators from "../../store/actions/authentication";
 
 // Fontawesome
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,21 +20,36 @@ class SideNav extends React.Component {
     this.state = { collapsed: false };
   }
 
+
+// componentDidMount(){
+//   this.props.fetchChannels();
+// }
+
   render() {
     const channelLinks = [{ name: "all" }].map(channel => (
       <ChannelNavLink key={channel.name} channel={channel} />
     ));
+
+    console.log(this.props.channels);
     return (
       <div>
-        <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
-          <li className="nav-item" data-toggle="tooltip" data-placement="right">
-            <Link className="nav-link heading" to="/createChannel">
-              <span className="nav-link-text mr-2">Channels</span>
-              <FontAwesomeIcon icon={faPlusCircle} />
-            </Link>
-          </li>
-          {channelLinks}
-        </ul>
+
+        {this.props.user?
+          <div>
+            <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
+              <li className="nav-item" data-toggle="tooltip" data-placement="right">
+                <Link className="nav-link heading" to="/createChannel">
+                  <span className="nav-link-text mr-2">Channels</span>
+                  <FontAwesomeIcon icon={faPlusCircle} />
+                </Link>
+              </li>
+              {channelLinks}
+              {this.props.channels}
+            </ul>
+          </div>:null}
+
+
+
         <ul className="navbar-nav sidenav-toggler">
           <li className="nav-item">
             <span
@@ -54,5 +71,18 @@ class SideNav extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  channels: state.auth.channels
+});
 
-export default SideNav;
+// const mapDispatchToProps = dispatch => {
+//   return {
+//     fetchChannels: () => dispatch(actionCreators.fetchChannels()),
+//   };
+// };
+
+export default connect(
+  mapStateToProps,
+  null
+)(SideNav);

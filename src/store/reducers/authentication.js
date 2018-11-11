@@ -1,7 +1,8 @@
 import * as actionTypes from "../actions/actionTypes";
 
 const initialState = {
-  user: null
+  user: null,
+  channels: []
 };
 
 const reducer = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.payload
       };
+      case actionTypes.FETCH_CHANNELS:
+        return {
+          ...state,
+          channels: action.payload,
+        };
     default:
       return state;
   }
