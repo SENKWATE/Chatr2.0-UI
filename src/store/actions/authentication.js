@@ -97,6 +97,20 @@ export const fetchChannels = () => {
   };
 };
 
+export const postChannel = (channel) => {
+  return dispatch => {
+    instance
+      .post(`channels/create/`, channel)
+      .then(res => res.data)
+      .then(createdChannel =>
+        dispatch({
+          type: actionTypes.POST_CHANNEL,
+          payload: createdChannel
+        })
+      )
+      .catch(error => console.error(error.response.data));
+  };
+};
 
 const setCurrentUser = user => ({
   type: actionTypes.SET_CURRENT_USER,

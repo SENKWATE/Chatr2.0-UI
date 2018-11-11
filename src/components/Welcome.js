@@ -5,9 +5,9 @@ import * as actionCreators from "../store/actions/authentication";
 
 
 class Welcome extends Component {
-  componentDidMount() {
-     this.props.checkToken();
-   }
+  // componentDidMount() {
+  //    this.props.checkToken();
+  //  }
 
 
   render() {
@@ -36,7 +36,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  checkToken: () => dispatch(actionCreators.checkForExpiredToken())
+  // checkToken: () => dispatch(actionCreators.checkForExpiredToken())
 });
 
 export default  connect(

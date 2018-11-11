@@ -20,6 +20,7 @@ class ChannelForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
+    this.props.postChannel(this.state);
     // this.props.postBook(this.state, this.props.authorID);
   }
 
@@ -28,7 +29,7 @@ class ChannelForm extends Component {
       <form onSubmit={this.onSubmit}>
         <input
           type="text"
-          name="title"
+          name="name"
           placeholder="Channel name..."
           onChange={this.onTextChange}
         />
@@ -47,8 +48,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // postBook: (book, authorID) =>
-    //   dispatch(actionCreators.postBook(book, authorID))
+    postChannel: newChannel => dispatch(actionCreators.postChannel(newChannel))
   };
 };
 

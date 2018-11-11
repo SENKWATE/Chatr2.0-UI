@@ -21,16 +21,16 @@ class SideNav extends React.Component {
   }
 
 
-// componentDidMount(){
-//   this.props.fetchChannels();
-// }
+componentDidMount(){
+  this.props.fetchChannels();
+}
 
   render() {
-    const channelLinks = [{ name: "all" }].map(channel => (
+    const channelLinks = this.props.channels.map(channel => (
       <ChannelNavLink key={channel.name} channel={channel} />
     ));
 
-    console.log(this.props.channels);
+
     return (
       <div>
 
@@ -44,7 +44,7 @@ class SideNav extends React.Component {
                 </Link>
               </li>
               {channelLinks}
-              {this.props.channels}
+              // {this.props.channel}
             </ul>
           </div>:null}
 
@@ -76,13 +76,13 @@ const mapStateToProps = state => ({
   channels: state.auth.channels
 });
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     fetchChannels: () => dispatch(actionCreators.fetchChannels()),
-//   };
-// };
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchChannels: () => dispatch(actionCreators.fetchChannels()),
+  };
+};
 
 export default connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(SideNav);
