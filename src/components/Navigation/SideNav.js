@@ -20,24 +20,25 @@ class SideNav extends React.Component {
     this.state = { collapsed: false };
   }
 
-
-componentDidMount(){
-  this.props.fetchChannels();
-}
+  // componentDidMount() {
+  //   this.props.fetchChannels();
+  // }
 
   render() {
     const channelLinks = this.props.channels.map(channel => (
       <ChannelNavLink key={channel.name} channel={channel} />
     ));
 
-
     return (
       <div>
-
-        {this.props.user?
+        {this.props.user ? (
           <div>
             <ul className="navbar-nav navbar-sidenav" id="exampleAccordion">
-              <li className="nav-item" data-toggle="tooltip" data-placement="right">
+              <li
+                className="nav-item"
+                data-toggle="tooltip"
+                data-placement="right"
+              >
                 <Link className="nav-link heading" to="/createChannel">
                   <span className="nav-link-text mr-2">Channels</span>
                   <FontAwesomeIcon icon={faPlusCircle} />
@@ -46,9 +47,8 @@ componentDidMount(){
               {channelLinks}
               // {this.props.channel}
             </ul>
-          </div>:null}
-
-
+          </div>
+        ) : null}
 
         <ul className="navbar-nav sidenav-toggler">
           <li className="nav-item">
@@ -78,7 +78,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchChannels: () => dispatch(actionCreators.fetchChannels()),
+    fetchChannels: () => dispatch(actionCreators.fetchChannels())
   };
 };
 

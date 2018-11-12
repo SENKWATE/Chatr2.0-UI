@@ -16,7 +16,7 @@ class ChannelNavLink extends Component {
       >
         <NavLink
           className="nav-link"
-          to={`/channels/${this.props.channel.name}`}
+          to={`/channels/${this.props.channel.id}`}
         >
           <FontAwesomeIcon icon={faHashtag} />
           <span className="nav-link-text"> {this.props.channel.name}</span>

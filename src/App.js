@@ -11,18 +11,22 @@ import Welcome from "./components/Welcome";
 import RegistrationForm from "./components/RegistrationForm";
 import SuperSecretPage from "./components/SuperSecretPage";
 import ChannelForm from "./components/ChannelForm";
+import MessageForm from "./components/MessageForm";
+import ChannelDetail from "./components/ChannelDetail";
 
 class App extends Component {
   componentDidMount() {
-     // this.props.checkToken();
-      this.props.fetchChannels();
-   }
+    // this.props.checkToken();
+    this.props.fetchChannels();
+  }
 
   render() {
     return (
       <div className="content-wrapper">
         <NavBar />
         <Switch>
+          <Route path="/channels/:channelID" component={ChannelDetail} />
+          <Route path="/channels/send" component={MessageForm} />
           <Route path="/welcome" component={Welcome} />
           <Route path="/createChannel" component={ChannelForm} />
           <Route path="/(login|signup)" component={RegistrationForm} />
@@ -37,7 +41,12 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => ({
   checkToken: () => dispatch(actionCreators.checkForExpiredToken()),
-  fetchChannels: () => dispatch(actionCreators.fetchChannels()),
+  fetchChannels: () => dispatch(actionCreators.fetchChannels())
 });
 
-export default withRouter(connect(null,mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    null,
+    mapDispatchToProps
+  )(App)
+);

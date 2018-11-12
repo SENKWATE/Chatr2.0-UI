@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import SideNav from "./SideNav";
 import AuthButton from "./AuthButton";
 
-
 class NavBar extends Component {
   render() {
     return (
@@ -35,6 +34,5 @@ class NavBar extends Component {
     );
   }
 }
-
 
 export default NavBar;

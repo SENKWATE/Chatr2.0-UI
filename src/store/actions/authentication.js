@@ -12,6 +12,7 @@ const instance = axios.create({
 // const setAuthToken = token => {};
 const setAuthToken = token => {
   if (token) {
+    console.log(token);
     localStorage.setItem("token", token);
     axios.defaults.headers.common.Authorization = `jwt ${token}`;
   } else {
@@ -19,7 +20,6 @@ const setAuthToken = token => {
     delete axios.defaults.headers.common.Authorization;
   }
 };
-
 
 // export const checkForExpiredToken = () => {};
 export const checkForExpiredToken = () => {
@@ -55,10 +55,11 @@ export const login = (userData, history) => {
         dispatch(setCurrentUser(decodedUser));
         history.push("/");
       })
-      .catch(err => console.error(err.response));
+      .catch(err => {
+        dispatch(setErrors(err.response.data));
+      });
   };
 };
-
 
 // export const signup = userData => {};
 export const signup = (userData, history) => {
@@ -72,7 +73,9 @@ export const signup = (userData, history) => {
         dispatch(setCurrentUser(decodedUser));
         history.push("/");
       })
-      .catch(err => console.error(err.response));
+      .catch(err => {
+        dispatch(setErrors(err.response.data));
+      });
   };
 };
 
@@ -97,7 +100,7 @@ export const fetchChannels = () => {
   };
 };
 
-export const postChannel = (channel) => {
+export const postChannel = channel => {
   return dispatch => {
     instance
       .post(`channels/create/`, channel)
@@ -106,6 +109,38 @@ export const postChannel = (channel) => {
         dispatch({
           type: actionTypes.POST_CHANNEL,
           payload: createdChannel
+        })
+      )
+      .catch(error => console.error(error.response.data));
+  };
+};
+
+export const fetchChannelDetail = channelID => {
+  return dispatch => {
+    instance
+      .get(`channels/${channelID}/`)
+      .then(res => res.data)
+      .then(channel => {
+        console.log("CHANNEL");
+        console.log(channel);
+        dispatch({
+          type: actionTypes.FETCH_CHANNEL_DETAIL,
+          payload: channel
+        });
+      })
+      .catch(err => console.error(err));
+  };
+};
+
+export const postMessage = channelID => {
+  return dispatch => {
+    instance
+      .post(`channels/${channelID}/send/`, channelID)
+      .then(res => res.data)
+      .then(message =>
+        dispatch({
+          type: actionTypes.POST_MESSAGE,
+          payload: message
         })
       )
       .catch(error => console.error(error.response.data));
