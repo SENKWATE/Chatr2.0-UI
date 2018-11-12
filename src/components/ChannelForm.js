@@ -26,6 +26,7 @@ class ChannelForm extends Component {
 
   render() {
     return (
+      <div className="col-6 mx-auto p-0 mt-5">
       <form onSubmit={this.onSubmit}>
         <input
           type="text"
@@ -34,8 +35,9 @@ class ChannelForm extends Component {
           onChange={this.onTextChange}
         />
 
-        <input type="submit" value="Add Channel" />
+        <input className="btn" type="submit" value="Add Channel" />
       </form>
+      </div>
     );
   }
 }

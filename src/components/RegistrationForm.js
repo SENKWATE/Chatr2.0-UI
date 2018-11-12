@@ -16,6 +16,15 @@ class RegistationForm extends Component {
     this.submitHandler = this.submitHandler.bind(this);
   }
 
+  componentWillUnmount() {
+     this.props.resetForm();
+   }
+// componentDidUpdate(){
+//   if(this.props.match.params !== prevProps.match.params){
+//     this.props.resetForm();
+//   }
+// }
+
   changeHandler(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
@@ -38,6 +47,8 @@ class RegistationForm extends Component {
   render() {
     const type = this.props.match.url.substring(1);
     const { username, password } = this.state;
+    const errors = this.props.errors;
+
     if (this.props.user) {
       this.props.history.push("/");
     }
@@ -49,6 +60,11 @@ class RegistationForm extends Component {
               ? "Login to send messages"
               : "Register an account"}
           </h5>
+          {errors.non_field_errors && (
+             <div className="alert alert-danger" role="alert">
+               {errors.non_field_errors}
+             </div>
+           )}
           <form onSubmit={this.submitHandler} noValidate>
             {/* {authStore.errors.length > 0 && (
             <div className="alert alert-danger" role="alert">
@@ -64,6 +80,9 @@ class RegistationForm extends Component {
                 required
                 onChange={this.changeHandler}
               />
+              {errors.username && (
+                 <div className="invalid-feedback">{errors.username}</div>
+               )}
             </div>
             <div className="form-group">
               <input
@@ -74,6 +93,9 @@ class RegistationForm extends Component {
                 required
                 onChange={this.changeHandler}
               />
+              {errors.password && (
+                 <div className="invalid-feedback">{errors.password}</div>
+               )}
             </div>
             <input
               className="btn btn-primary"
@@ -100,7 +122,8 @@ class RegistationForm extends Component {
 
 const mapStateToProps = state => ({
   user: state.auth.user,
-  // error: state.errors
+  errors: state.errors
+
 });
 const mapDispatchToProps = dispatch => {
   return {
@@ -110,6 +133,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(actionCreators.login(userData, history)),
     // error: (error) =>
     //   dispatch(actionErrors.setErrors(error))
+    resetForm: () => dispatch(actionErrors.setErrors({}))
 
   };
 };

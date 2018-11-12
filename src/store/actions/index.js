@@ -1,7 +1,7 @@
-export { fetchAuthorDetail, postBook } from "./author";
+// export { fetchAuthorDetail, postBook } from "./author";
+//
+// export { fetchAuthors, filterAuthors, postAuthor } from "./authors";
 
-export { fetchAuthors, filterAuthors, postAuthor } from "./authors";
+export { login, logout, signup, checkForExpiredToken, fetchChannels, postChannel } from "./authentication";
 
-export { login, logout, signup, checkForExpiredToken, fetchChannels } from "./authentication";
-
-export { setErrors } from "./common";
+export { setErrors } from "./errors";
