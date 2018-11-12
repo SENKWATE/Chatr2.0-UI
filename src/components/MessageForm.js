@@ -8,7 +8,7 @@ class MessageForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      message: "",
       username: this.props.user.username
     };
     this.onTextChange = this.onTextChange.bind(this);
@@ -20,20 +20,22 @@ class MessageForm extends Component {
   }
 
   onSubmit(event) {
+    console.log("Message: " + this.state.message);
+    console.log(this.props);
     event.preventDefault();
-    this.props.postMessage(this.state);
+    this.props.postMessage(this.props.id, this.state);
     // this.props.postBook(this.state, this.props.authorID);
   }
 
   render() {
-    console.log("Message: " + this.state.name + ", by: " + this.state.username);
     return (
       <div className="col-6 mx-auto p-0 mt-5">
         <form onSubmit={this.onSubmit}>
           <input
             style={{ width: 400 }}
             type="text"
-            name="name"
+            name="message"
+            value={this.state.message}
             placeholder="Add a message..."
             onChange={this.onTextChange}
           />
@@ -47,13 +49,15 @@ class MessageForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user
+    user: state.auth.user,
+    channel: state.auth.channel
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    postMessage: newChannel => dispatch(actionCreators.postMessage(newChannel))
+    postMessage: (id, newChannel) =>
+      dispatch(actionCreators.postMessage(id, newChannel))
   };
 };
 

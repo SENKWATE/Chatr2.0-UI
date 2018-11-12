@@ -132,15 +132,15 @@ export const fetchChannelDetail = channelID => {
   };
 };
 
-export const postMessage = channelID => {
+export const postMessage = (channelID, newMessage) => {
   return dispatch => {
     instance
-      .post(`channels/${channelID}/send/`, channelID)
+      .post(`channels/${channelID}/send/`, newMessage)
       .then(res => res.data)
-      .then(message =>
+      .then(() =>
         dispatch({
           type: actionTypes.POST_MESSAGE,
-          payload: message
+          payload: newMessage
         })
       )
       .catch(error => console.error(error.response.data));

@@ -33,7 +33,7 @@ class ChannelDetail extends Component {
           </h3>
           <h3>{"Messages: "}</h3>
           {messages}
-          <MessageForm />
+          <MessageForm id={this.props.match.params.channelID} />
         </div>
       </div>
     );

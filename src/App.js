@@ -26,7 +26,7 @@ class App extends Component {
         <NavBar />
         <Switch>
           <Route path="/channels/:channelID" component={ChannelDetail} />
-          <Route path="/channels/send" component={MessageForm} />
+
           <Route path="/welcome" component={Welcome} />
           <Route path="/createChannel" component={ChannelForm} />
           <Route path="/(login|signup)" component={RegistrationForm} />

@@ -8,7 +8,7 @@ class ChannelForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
+      name: ""
     };
     this.onTextChange = this.onTextChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -20,24 +20,24 @@ class ChannelForm extends Component {
 
   onSubmit(event) {
     event.preventDefault();
-    this.props.postChannel(this.state);
+    this.props.postChannel(this.props, this.state);
     // this.props.postBook(this.state, this.props.authorID);
   }
 
   render() {
     return (
       <div className="col-6 mx-auto p-0 mt-5">
-      <form onSubmit={this.onSubmit}>
-        <input
-          style={{width: 400}}
-          type="text"
-          name="name"
-          placeholder="Channel name..."
-          onChange={this.onTextChange}
-        />
+        <form onSubmit={this.onSubmit}>
+          <input
+            style={{ width: 400 }}
+            type="text"
+            name="name"
+            placeholder="Channel name..."
+            onChange={this.onTextChange}
+          />
 
-        <input className="btn" type="submit" value="Add Channel"  />
-      </form>
+          <input className="btn" type="submit" value="Add Channel" />
+        </form>
       </div>
     );
   }
@@ -45,7 +45,7 @@ class ChannelForm extends Component {
 
 const mapStateToProps = state => {
   return {
-    user: state.auth.user,
+    user: state.auth.user
   };
 };
 
