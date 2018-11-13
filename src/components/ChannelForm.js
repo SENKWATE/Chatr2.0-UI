@@ -8,7 +8,8 @@ class ChannelForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: ""
+      name: "",
+      image_url: ""
     };
     this.onTextChange = this.onTextChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -21,6 +22,7 @@ class ChannelForm extends Component {
   onSubmit(event) {
     event.preventDefault();
     this.props.postChannel(this.props, this.state);
+    this.setState({ name: "", image_url: "" });
     // this.props.postBook(this.state, this.props.authorID);
   }
 
@@ -28,15 +30,30 @@ class ChannelForm extends Component {
     return (
       <div className="col-6 mx-auto p-0 mt-5">
         <form onSubmit={this.onSubmit}>
-          <input
-            style={{ width: 400 }}
-            type="text"
-            name="name"
-            placeholder="Channel name..."
-            onChange={this.onTextChange}
-          />
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Channel Name</span>
+            </div>
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              onChange={this.onTextchange}
+            />
+          </div>
 
-          <input className="btn" type="submit" value="Add Channel" />
+          <div className="input-group mb-3">
+            <div className="input-group-prepend">
+              <span className="input-group-text">Image URL</span>
+            </div>
+            <input
+              type="text"
+              className="form-control"
+              name="image_url"
+              onChange={this.onTextchange}
+            />
+          </div>
+          <input type="submit" />
         </form>
       </div>
     );

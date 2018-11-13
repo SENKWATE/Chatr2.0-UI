@@ -9,6 +9,10 @@ const instance = axios.create({
   baseURL: "https://api-chatr.herokuapp.com/"
 });
 
+const setLoading = () => ({
+  type: actionTypes.SET_AUTHOR_LOADING
+});
+
 // const setAuthToken = token => {};
 const setAuthToken = token => {
   if (token) {
@@ -117,6 +121,7 @@ export const postChannel = channel => {
 
 export const fetchChannelDetail = channelID => {
   return dispatch => {
+    dispatch(setLoading());
     instance
       .get(`channels/${channelID}/`)
       .then(res => res.data)

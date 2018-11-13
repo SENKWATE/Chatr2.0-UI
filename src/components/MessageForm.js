@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 // Actions
 import * as actionCreators from "../store/actions";
+import emoji from "react-easy-emoji";
 
 class MessageForm extends Component {
   constructor(props) {
@@ -13,17 +14,24 @@ class MessageForm extends Component {
     };
     this.onTextChange = this.onTextChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.Emoji = this.Emoji.bind(this);
   }
 
   onTextChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  Emoji() {
+    let S = this.state.message + "😭";
+    this.setState({ message: S });
+  }
   onSubmit(event) {
     console.log("Message: " + this.state.message);
     console.log(this.props);
     event.preventDefault();
+
     this.props.postMessage(this.props.id, this.state);
+    this.setState({ message: "" });
     // this.props.postBook(this.state, this.props.authorID);
   }
 
@@ -41,6 +49,9 @@ class MessageForm extends Component {
           />
 
           <input className="btn" type="submit" value="Add Message" />
+          <button className="btn" onClick={() => this.Emoji}>
+            Emoji
+          </button>
         </form>
       </div>
     );
