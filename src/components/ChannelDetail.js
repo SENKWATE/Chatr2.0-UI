@@ -6,10 +6,9 @@ import MessageForm from "./MessageForm";
 
 class ChannelDetail extends Component {
   componentDidMount() {
-    this.props.getChannel(this.props.match.params.channelID);
     this.interval = setInterval(
-      () => this.setState({ time: Date.now() }),
-      3000
+      () => this.props.getChannel(this.props.match.params.channelID),
+      2000
     );
   }
 
@@ -18,13 +17,12 @@ class ChannelDetail extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      this.props.match.params !== prevProps.match.params ||
-      this.props.channel !== prevProps.channel
-    ) {
+    if (this.props.match.params !== prevProps.match.params) {
       clearInterval(this.interval);
-
-      this.props.getChannel(this.props.match.params.channelID);
+      this.interval = setInterval(
+        () => this.props.getChannel(this.props.match.params.channelID),
+        2000
+      );
     }
   }
   render() {
