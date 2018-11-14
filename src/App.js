@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actionCreators from "./store/actions/authentication";
+import "./App.css";
 
 // Components
 import NavBar from "./components/Navigation/NavBar";
@@ -11,6 +12,7 @@ import Welcome from "./components/Welcome";
 import RegistrationForm from "./components/RegistrationForm";
 import SuperSecretPage from "./components/SuperSecretPage";
 import ChannelForm from "./components/ChannelForm";
+import AddChannel from "./components/AddChannel";
 import MessageForm from "./components/MessageForm";
 import ChannelDetail from "./components/ChannelDetail";
 

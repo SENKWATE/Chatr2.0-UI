@@ -1,8 +1,7 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+import * as actionCreators from "../store/actions/index";
 import { connect } from "react-redux";
-
-// Actions
-import * as actionCreators from "../store/actions";
 
 class ChannelForm extends Component {
   constructor(props) {
@@ -11,67 +10,70 @@ class ChannelForm extends Component {
       name: "",
       image_url: ""
     };
-    this.onTextChange = this.onTextChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+
+    this.changeHandler = this.changeHandler.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
   }
 
-  onTextChange(event) {
+  changeHandler(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  onSubmit(event) {
+  submitHandler(event) {
     event.preventDefault();
-    this.props.postChannel(this.props, this.state);
+    this.props.postChannel(this.state);
     this.setState({ name: "", image_url: "" });
-    // this.props.postBook(this.state, this.props.authorID);
   }
 
+  componentWillUnmount() {
+    this.setState({ name: "", image_url: "" });
+  }
   render() {
     return (
-      <div className="col-6 mx-auto p-0 mt-5">
-        <form onSubmit={this.onSubmit}>
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Channel Name</span>
+      <div className="card col-6 mx-auto p-0 mt-5">
+        <div className="card-body">
+          <h5 className="card-title mb-4">Create Channel</h5>
+          <form onSubmit={this.submitHandler} noValidate>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="name"
+                name="name"
+                required
+                value={this.state.name}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="url"
+                placeholder="Image url"
+                name="image_url"
+                required
+                value={this.state.image_url}
+                onChange={this.changeHandler}
+              />
             </div>
             <input
-              type="text"
-              className="form-control"
-              name="name"
-              onChange={this.onTextchange}
+              className="btn btn-light"
+              type="submit"
+              value="Create Channel"
             />
-          </div>
-
-          <div className="input-group mb-3">
-            <div className="input-group-prepend">
-              <span className="input-group-text">Image URL</span>
-            </div>
-            <input
-              type="text"
-              className="form-control"
-              name="image_url"
-              onChange={this.onTextchange}
-            />
-          </div>
-          <input type="submit" />
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    user: state.auth.user
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    postChannel: newChannel => dispatch(actionCreators.postChannel(newChannel))
-  };
-};
-
+const mapStateToProps = state => ({
+  user: state.auth.user
+});
+const mapDispatchToProps = dispatch => ({
+  postChannel: channel => dispatch(actionCreators.postChannel(channel))
+});
 export default connect(
   mapStateToProps,
   mapDispatchToProps

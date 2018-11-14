@@ -21,9 +21,9 @@ class MessageForm extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
 
-  Emoji() {
-    let S = this.state.message + "😭";
-    this.setState({ message: S });
+  Emoji(event) {
+    this.setState({ message: "🎮" });
+    console.log(this.state.message);
   }
   onSubmit(event) {
     console.log("Message: " + this.state.message);
@@ -39,18 +39,26 @@ class MessageForm extends Component {
     return (
       <div className="col-6 mx-auto p-0 mt-5">
         <form onSubmit={this.onSubmit}>
-          <input
+          <textarea
             style={{ width: 400 }}
             type="text"
             name="message"
             value={this.state.message}
             placeholder="Add a message..."
             onChange={this.onTextChange}
+            id="emoji"
           />
 
-          <input className="btn" type="submit" value="Add Message" />
-          <button className="btn" onClick={() => this.Emoji}>
-            Emoji
+          <div>
+            <input
+              style={{ width: 400 }}
+              className="btn"
+              type="submit"
+              value="Send"
+            />
+          </div>
+          <button className="btn" type="text" onClick={() => this.Emoji}>
+            🎮
           </button>
         </form>
       </div>

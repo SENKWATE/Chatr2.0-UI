@@ -126,8 +126,8 @@ export const fetchChannelDetail = channelID => {
       .get(`channels/${channelID}/`)
       .then(res => res.data)
       .then(channel => {
-        console.log("CHANNEL");
-        console.log(channel);
+        // console.log("CHANNEL");
+        // console.log(channel);
         dispatch({
           type: actionTypes.FETCH_CHANNEL_DETAIL,
           payload: channel
